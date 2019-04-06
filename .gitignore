@@ -1,0 +1,15 @@
+.env
+# Compiled files
+*.tfstate
+*.tfstate.backup
+terraform.tfvars
+# Module directory
+.terraform/
+
+# Sensitive Files
+/variables.tf
+.terraform.tfstate.lock.info
+manifest.json
+postgresql.conf
+pg_hba.conf
+myAwsKey.pub
