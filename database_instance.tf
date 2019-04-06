@@ -13,7 +13,7 @@ values = ["hvm"]
 
 owners = ["136496309071"]
 }
-
+# Database instance that defines postgresql
 resource "aws_instance" "DB_Instance" {
   ami           = "${data.aws_ami.ubuntu.id}"
   instance_type = "t2.micro"

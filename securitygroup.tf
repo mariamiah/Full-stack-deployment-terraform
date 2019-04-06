@@ -4,45 +4,51 @@ resource "aws_security_group" "VPC_security" {
    name = "vpc_security_group"
   description = "Allow incoming HTTP connections & SSH access"
 
+# security block for inbound http traffic
   ingress {
     from_port = 80
     to_port = 80
     protocol = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-
+# security block for inbound https traffic
   ingress {
     from_port = 443
     to_port = 443
     protocol = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-
+# security block for inbound icmp traffic
   ingress {
     from_port = -1
     to_port = -1
     protocol = "icmp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-
+# security block for inbound ssh traffic
   ingress {
     from_port = 22
     to_port = 22
     protocol = "tcp"
     cidr_blocks =  ["0.0.0.0/0"]
   }
+# security block for postgresql
    ingress {
     from_port   = 5432
     to_port     = 5432
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
-  } 
+  }
+
+# security block for inbound traffic at port 5000 
     ingress {
     from_port   = 5000
     to_port     = 5000
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
+# security block for outbound all traffic
     egress {
     from_port   = 0
     to_port     = 0
