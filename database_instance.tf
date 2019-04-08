@@ -1,16 +1,17 @@
+# Definition of the type of AMI and filtered according to the date of creation
 data "aws_ami" "ubuntu" {
 most_recent = true
-
+# Filter AMI basing on its name prefix
 filter {
 name   = "name"
 values = ["Store-DB-AMI*"] 
 }
-
+# Filter AMI basing on its virtualization type
 filter {
 name   = "virtualization-type"
 values = ["hvm"]
 }
-
+# Filter AMI basing on the owner's ID
 owners = ["136496309071"]
 }
 # Database instance that defines postgresql
