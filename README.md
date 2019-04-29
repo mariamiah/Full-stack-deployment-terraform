@@ -108,7 +108,7 @@ Each of these classes has a valid number of IP address ranges that serve differe
 - 169.254.0.0/16 – link-local addresses (APIPA)
 
 ### IPV6
-The length of an IPV6 is 128 bits compared with the 32 bits in IPV4. There is, therefore, a total of 2<sup>128 potential addresses. This approximates to `340 undecillion` addresses
+The length of an IPV6 is 128 bits compared with the 32 bits in IPV4. Therefore the total number of potential addresses is 2<sup>128
 - This makes IPV6 able to support way more nodes compared to IPV4
 - This address is comprised of 128 bits divided into eight 16-bits blocks
 - Each block is converted into a 4-digit hexadecimal number separated by colon symbols as shown `2001:0000:3238:DFE1:0063:0000:0000: FEFB`
