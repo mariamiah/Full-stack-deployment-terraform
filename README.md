@@ -1,5 +1,5 @@
 ### AUTO DEPLOYMENT WITH TERRAFORM, VPC, ANSIBLE & PACKER
-The aim of this project is to auto deploy a three tier application comprised of the Front end, Backend(API server) and Database
+The aim of this project is to auto deploy a three-tier application comprised of the Front end, Backend(API server) and Database
 
 ### Technologies used
 - [Packer](https://www.packer.io/) - This technology is used to make a packer AMI image on AWS
@@ -10,18 +10,18 @@ The aim of this project is to auto deploy a three tier application comprised of 
 
 ### How the application works
 - Clone this repository by running `git clone https://github.com/mariamiah/FULL-STACK-DEPLOYMENT-WITH-TERRAFORM.git`
-- Navigate into the cloned repository on terminal by typing `cd FULL-STACK-DEPLOYMENT-WITH-TERRAFORM`
-- Create a .env file within this folder and provide both your AWS access key and security key in the format presented in the env.sample file
-- Source the .env file by using `source .env` on the terminal
+- Navigate into the cloned repository on the terminal by typing `cd FULL-STACK-DEPLOYMENT-WITH-TERRAFORM`
+- Make a .pub file by running `ssh-keygen -y -f path-to-your-.pem-file > myAwsKey.pub` in your terminal
+- Create a terraform.tfvars in your project and add all the necessary variables ass seen in an example `terraform.tfvars.sample`
 - Run the script by typing `./launch.sh`
-- Type `yes` at the terraform plan prompt inorder to apply all the planned changes
+- Type `yes` at the terraform plan prompt in order to apply all the planned changes
 - On completion of the script, check your AWS dashboard to ensure the VPC along with the corresponding subnets and instances have been created 
 
 ### The Network VPC Diagram for the store manager application
 ![Network Diagram](images/FINALXML.png "VPC network diagram for the store manager application")
 
 ### Why CIDR?
-- CIDR stands for Classless Inter Domain Routing which is a set of Internet protocol (IP)standards that used to create unique addresses which identify devices on a network.With the introduction of CIDR, IP addressing became became difficult therefore the need to introduce CIDR notation.
+- CIDR stands for Classless Inter-Domain Routing which is a set of Internet protocol (IP)standards that used to create unique addresses which identify devices on a network. With the introduction of CIDR, IP addressing became difficult therefore the need to introduce CIDR notation.
 Adding the suffix /xx after the IP address shows that the address has been CLASSLESSly subnetted and that CIDR notation has been used.
 
 - With CIDR notation, a network administrator is able to easily know the available subnets and hosts for a given network compared to the initial calculations that involved using the subnet mask.
@@ -38,19 +38,19 @@ With CIDR:
 ..1./
 ```
 
-- Using CIDR notation also saves a lot of time and is prone to less errors.
+- Using CIDR notation also saves a lot of time and is prone to fewer errors.
 
 ### Subnetting using CIDR
 An example of the IP address below with a CIDR notation of /20 shall be used to describe how to subnet using CIDR notation
 
 `192.168.60.55/20`
 ##### What /20 means
-- This represent the bit(prefix) length of the subnet mask. In otherwords it is the number of consecutive one's in the subnet mask, the rest being zero's
-Forexample
+- This represents the bit(prefix) length of the subnet mask. In other words, it is the number of consecutive ones in the subnet mask, the rest being zero's
+For example
 ``` 11111111.11111111.11110000.00000000 ```
 
 ##### Step One ( Finding the subnet mask )
-- Inorder to apply simplicity while subnetting, a simple table like one shown below can be referenced
+- In order to apply simplicity while subnetting, a simple table like one shown below can be referenced
 
 |     |      |      |       |       |       |      |    |
 | --- | ---- | -----| ----- | ----- | ----- |----- |----|
@@ -88,13 +88,13 @@ Each of these classes has a valid number of IP address ranges that serve differe
 - Class A addresses fall in the range of `0-127` for the first octet value
 - The first 8 bits represent the network part while the rest of the 24 bits represent the host part as shown `N.H.H.H`
 - Examples of class A address is 10.50.120.7 because the first decimal digit lies in the range of 0 and 127
-- Class A addresses are designed for use by large companies like google
+- Class A addresses are designed for use by large companies like Google
 
 ##### Class B
 - Class B addresses fall in the range of `128-191` for the first octet value
 - The first two digits represent the network part while the last two digits represent the host part as shown `N.N.H.H`
 - An example of a class B address is `172.16.55.13`
-- Class B addresses are for use by medium sized companies
+- Class B addresses are for use by medium-sized companies
 
 ##### Class C
 - Class C addresses fall in the range of `192-223` for the first octet value
@@ -108,16 +108,16 @@ Each of these classes has a valid number of IP address ranges that serve differe
 - 169.254.0.0/16 – link-local addresses (APIPA)
 
 ### IPV6
-The length of an IPV6 is 128 bits compared with the 32 bits in IPV4. There is therefore a total of 2<sup>128 potential addresses. This approximates to `340 undecillion` addresses
+The length of an IPV6 is 128 bits compared with the 32 bits in IPV4. Therefore the total number of potential addresses is 2<sup>128
 - This makes IPV6 able to support way more nodes compared to IPV4
 - This address is comprised of 128 bits divided into eight 16-bits blocks
-- Each block is converted into a 4-digit hexa decimal numbers seperated by colon symbols as shown `2001:0000:3238:DFE1:0063:0000:0000:FEFB`
+- Each block is converted into a 4-digit hexadecimal number separated by colon symbols as shown `2001:0000:3238:DFE1:0063:0000:0000: FEFB`
 
 ### DNS record types and their uses
 ##### A-Records(Host Address)
 - This is the most fundamental and commonly used record type
-- It translates human friendly domain names such as "www.google.com" into IP addresses which are machine friendly numbers such as `10.0.0.5`
-- A records are needed for any computer that provides shared resources on a network and are equivalent to the hosts file
+- It translates human-friendly domain names such as "www.google.com" into IP addresses which are machine friendly numbers such as `10.0.0.5`
+- Records are needed for any computer that provides shared resources on a network and is equivalent to the host's file
 
 ##### AAAA Records(IPv6 Host addresses)
 - This specifies the IPv6 of a host
@@ -126,10 +126,9 @@ The length of an IPV6 is 128 bits compared with the 32 bits in IPV4. There is th
 - These are virtual alias records resolved by Simple DNS Plus at the time of each request
 ##### CNAME Records
 - These are domain name aliases
--For example, the computer "computer1.xyz.com" may be both a web-server and an ftp-server, so two CNAME-records are defined:
+-For example, the computer "computer1.xyz.com" may be both a web-server and an FTP-server, so two CNAME-records are defined:
 
 `www.xyz.com` = `computer1.xyz.com` and `ftp.xyz.com` = `computer1.xyz.com`.
 ##### MX-Records(Mail Exchange)
 - These specify the mail servers that are responsible for a domain name
-- Each MX-record points to the name of the email-server and holds a preference number for that server.
-
+- Each MX-record points to the name of the email-server and holds a reference number for that server.
