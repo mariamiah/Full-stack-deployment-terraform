@@ -11,8 +11,8 @@ The aim of this project is to auto deploy a three-tier application comprised of 
 ### How the application works
 - Clone this repository by running `git clone https://github.com/mariamiah/FULL-STACK-DEPLOYMENT-WITH-TERRAFORM.git`
 - Navigate into the cloned repository on the terminal by typing `cd FULL-STACK-DEPLOYMENT-WITH-TERRAFORM`
-- Create a .env file within this folder and provide both your AWS access key and security key in the format presented in the env.sample file
-- Source the .env file by using `source .env` on the terminal
+- Make a .pub file by running `ssh-keygen -y -f path-to-your-.pem-file > myAwsKey.pub` in your terminal
+- Create a terraform.tfvars in your project and add all the necessary variables ass seen in an example `terraform.tfvars.sample`
 - Run the script by typing `./launch.sh`
 - Type `yes` at the terraform plan prompt in order to apply all the planned changes
 - On completion of the script, check your AWS dashboard to ensure the VPC along with the corresponding subnets and instances have been created 
