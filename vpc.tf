@@ -26,7 +26,7 @@ resource "aws_subnet" "public-subnet-b" {
   availability_zone = "eu-west-2b"
 
   tags {
-    Name = "web-server-subnet"
+    Name = "web-front-subnet"
   }
 }
 # Resource creates a private subnet to hold the Database Instance

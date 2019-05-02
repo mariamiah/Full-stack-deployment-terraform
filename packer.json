@@ -25,10 +25,6 @@
       }
     ],
   "provisioners":[
-  {
-      "type":"shell",
-      "script":"install_ansible.sh"
-      },
       {
         "type":"shell",
         "script":"postgresDB.sh"

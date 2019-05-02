@@ -7,7 +7,6 @@ terraform.tfvars
 .terraform/
 
 # Sensitive Files
-/variables.tf
 .terraform.tfstate.lock.info
 manifest.json
 postgresql.conf

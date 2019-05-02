@@ -1,0 +1,116 @@
+- hosts: all
+  become: yes
+  remote_user: ubuntu
+  vars:
+    NODEJS_VERSION: '10'
+  tasks:
+    -
+        name: 'Updating packages'
+        apt:  'update_cache=yes'
+
+    - 
+        name: 'Upgrading packages'
+        command: |
+               apt-get -y upgrade
+    -
+        name: 'Installing nginx'
+        apt: 'name=nginx update_cache=yes'
+    -
+        name: 'Starting nginx on boot'
+        service: 'name=nginx enabled=yes state=started'
+    -
+        name: 'Remove nginx default file'
+        file:
+            path: /etc/nginx/sites-enabled/default
+            state: absent
+    -
+        name: 'Add custom nginx file'
+        file:
+            path: /etc/nginx/sites-available/customconfig
+            state: touch
+    -
+        name: 'create an nginx reverse proxy'
+        command: |
+            bash -c 'cat > /etc/nginx/sites-available/customconfig <<EOF
+            server {
+            listen 80;
+            location / {
+              proxy_pass http://localhost:3000;
+            }}
+            EOF'
+    -
+        name: 'create a symlink for custom config in sites-enabled'
+        file:
+            src: /etc/nginx/sites-available/customconfig
+            dest: /etc/nginx/sites-enabled/customconfig
+            state: link
+    -
+        name: 'start the nginx service'
+        shell: |
+            sudo systemctl start nginx
+    -
+        name: 'Add Nodejs''s official GPG Key...'
+        apt_key:
+            url: 'https://deb.nodesource.com/gpgkey/nodesource.gpg.key'
+            state: present
+    -
+        name: 'Add Nodejs 10.x Source repository...'
+        apt_repository:
+            repo: 'deb https://deb.nodesource.com/node_10.x bionic main'
+            state: present
+            update_cache: yes
+    -
+        name: 'install nodejs...'
+        apt:
+            name: nodejs
+            state: present
+    -   
+        name: 'clone app repo from github...'
+        git: 
+            repo: 'https://github.com/mariamiah/Store-Manager-React.git'
+            dest: '/home/ubuntu/Store-Manager-React'
+            clone: yes
+
+    -   name: 'install application dependencies...'
+        shell:
+          cmd: |
+            cd /home/ubuntu/Store-Manager-React
+            sudo npm install
+    -   
+        name: 'set environment variable in .env'
+        shell: 
+          cmd: |
+           cd /home/ubuntu/Store-Manager-React
+           sudo touch .env
+           echo "BASE_URL='https://storemanager15.herokuapp.com'" > .env
+    -
+        name: 'Run the build'
+        shell:
+          cmd: |
+            cd /home/ubuntu/Store-Manager-React
+            sudo npm run build            
+    -
+        name: 'Add systemd service file'
+        file:
+            path: /etc/systemd/system/store.service
+            state: touch
+    -
+        name: 'Edit systemd file'
+        blockinfile:
+            dest: /etc/systemd/system/store.service
+            block: |
+                [Unit]
+                Description=StoreService
+                [Service]
+                ExecStart=/usr/bin/node /home/ubuntu/Store-Manager-React/server.js
+                User=ubuntu
+                Restart=on-failure
+                [Install]
+                WantedBy=multi-user.target
+    -
+        name: 'Enable systemd service on start'
+        shell:
+           cmd: |
+            sudo systemctl daemon-reload
+            sudo systemctl start /etc/systemd/system/store.service
+            sudo systemctl enable /etc/systemd/system/store.service
