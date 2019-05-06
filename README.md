@@ -8,6 +8,13 @@ The aim of this project is to auto deploy a three-tier application comprised of 
 - [VPC](https://aws.amazon.com/vpc/) - Amazon VPC is used to set up security for the application
 - [AWS](https://aws.amazon.com/)- AWS shall provide the platform to run the application
 
+### Set up your environment
+- First and foremost, this project requires you to register an account with [Amazon Web Services](https://aws.amazon.com/).
+- Navigate to the [AWS website](https://aws.amazon.com/) and select `Create your AWS account`
+- Follow through the registration process by supplying your email address, password and account name.
+- Supply your address details in the next step and finally add valid credit card credentials to enable billing
+- Once the registration process is successfully, you are ready to get started deploying your application
+
 ### How the application works
 - Clone this repository by running `git clone https://github.com/mariamiah/FULL-STACK-DEPLOYMENT-WITH-TERRAFORM.git`
 - Navigate into the cloned repository on the terminal by typing `cd FULL-STACK-DEPLOYMENT-WITH-TERRAFORM`
@@ -15,8 +22,35 @@ The aim of this project is to auto deploy a three-tier application comprised of 
 - Create a terraform.tfvars in your project and add all the necessary variables ass seen in an example `terraform.tfvars.sample`
 - Run the script by typing `./launch.sh`
 - Type `yes` at the terraform plan prompt in order to apply all the planned changes
-- On completion of the script, check your AWS dashboard to ensure the VPC along with the corresponding subnets and instances have been created 
+- On completion of the script, check your AWS dashboard to ensure the VPC along with the corresponding subnets and instances have been created
 
+### How to confirm successful deployment
+#### The VPC
+- Navigate to your AWS console
+- Select `Services` in the menu bar
+- Select `VPC`
+- Navigate to the VPC dashboard
+- Select `Your VPCs`
+- A list of available VPCs shall be displayed including the newly created one tagged `storeManagerVPC`
+#### Subnets
+- Below the `Your VPCs` element, select `Subnets` on the right side menu of the VPC dashboard
+- A list of four created subnets should be displayed in the table having the correct CIDR blocks, correct availability zones and having their state set to available
+
+#### Route tables
+- Below the `Subnets` menu, select `Route tables`
+- You should be able to view two created route tables and they should be explicitly associated with 2 subnets
+and having the same VPC ID as shown in the table
+
+#### Internet Gateway
+- Navigate to the `Internet gateway` option just below the `Route tables` option
+- You should be able to view a created internet gateway with it's state set to `attached`
+#### Elastic IP
+- Navigate to the `Elastic IP` option and you should be able to view an elastic IP that has been associated to your nat-instance
+#### The EC2 instances
+- Finally, navigate to the EC2 service by selecting `Services` in the menu bar then `EC2`
+- Select  `Instances` option from the left hand vertical menu
+- A lsit of available instances is displayed along with their current status
+- You should be able to view the four created instances having an Instance state set to `running`
 ### The Network VPC Diagram for the store manager application
 ![Network Diagram](images/FINALXML.png "VPC network diagram for the store manager application")
 
