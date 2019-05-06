@@ -49,8 +49,16 @@ and having the same VPC ID as shown in the table
 #### The EC2 instances
 - Finally, navigate to the EC2 service by selecting `Services` in the menu bar then `EC2`
 - Select  `Instances` option from the left hand vertical menu
-- A lsit of available instances is displayed along with their current status
+- A list of available instances is displayed along with their current status
 - You should be able to view the four created instances having an Instance state set to `running`
+
+### Cleaning up resources after successful build
+Once the deployment is successful, you can clean up the resources by following these steps:
+- Navigate to the cloned repo folder
+- Run `chmod +x destroy.sh`
+- Then type `./destroy.sh` in the terminal
+This will remove all the resources that have been created with terraform
+
 ### The Network VPC Diagram for the store manager application
 ![Network Diagram](images/FINALXML.png "VPC network diagram for the store manager application")
 
